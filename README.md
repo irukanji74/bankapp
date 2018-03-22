@@ -12,3 +12,5 @@
 После этого выполнить комманду mvnw spring-boot:run
 После этого на адресе http://localhost:8080/index (можно без /index)
 будет запущено приложение.
+
+Alarm!!! Прошу прошения, чуть не забыл, MySql user=root; password=root; 
