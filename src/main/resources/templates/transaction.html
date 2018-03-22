@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>TheBank Application Home</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<!--/*@thymesVar id="transaction" type="com.irukanji.bankapp.model.Transaction"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+
+        <!-----------------------------------FORM OF NEW Tx CREATING ------------------------------>
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${transaction}" th:action="@{/transact/}" method="post">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p>Please Correct Errors Below</p>
+                </div>
+
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Create new transaction</h1>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('accountIdFrom')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Account FROM</label>
+                                    <input type="text" class="form-control" th:field="*{accountIdFrom}" th:errorclass="has-error" placeholder="Enter Account Id"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('accountIdFrom')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('accountIdFrom')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('accountIdTo')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Account TO</label>
+                                    <input type="text" class="form-control" th:field="*{accountIdTo}" th:errorclass="has-error" placeholder="Enter Account Id"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('accountIdTo')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('accountIdTo')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('txAmount')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Amount</label>
+                                    <input type="text" class="form-control" th:field="*{txAmount}" th:errorclass="has-error" placeholder="Enter amount"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('txAmount')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('txAmount')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Money</button>
+                    <td><a href="#" th:href="@{'/index'}">Start Page</a></td>
+                    <td><a href="#" th:href="@{'/transList'}">Show all transactions</a></td>
+                </div>
+            </form>
+
+           <!------------------------------------List of transactions------------------------------------->
+
+    </div>
+</div>
+</div>
+</body>
+</html>

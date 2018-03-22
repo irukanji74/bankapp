@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>TheBank Application Home</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}">
+
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<!--/*@thymesVar id="account" type="com.irukanji.bankapp.model.Account"*/-->
+<!--/*@thymesVar id="client" type="com.irukanji.bankapp.model.Client"*/-->
+<!--/*@thymesVar id="accounts" type="java.util.List"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <h1 class="panel-title" th:text="${client.name}">List of accounts</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(accounts)}">
+                        <table class="table table-hover ">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>AccountID</th>
+                                <th>Balance</th>
+                                <th>Transactions list</th>
+                            </tr>
+                            </thead>
+                            <tr th:remove="all">
+                                <td>123</td>
+                                <td>563342</td>
+                                <td><a href="#">List1</a></td>
+                            </tr>
+                            <tr th:remove="all">
+                                <td>1233</td>
+                                <td>234111</td>
+                                <td><a href="#">List2</a></td>
+                            </tr>
+                            <tr th:each="account : ${accounts}">
+                                <td th:text="${account.id}">334</td>
+                                <td th:text="${account.accountBalance}">22</td>
+            <!-- <td><a href="#" th:href="@{'/accounts/' + ${account.id} + '/showTxList'}">View</a></td>-->
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!---------------------------->
+
+        <!-----------------------------------FORM OF NEW ACCOUNT ADDING ------------------------------>
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${account}" th:action="@{/new_account/}" method="post">
+
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p>Please Correct Errors Below</p>
+                </div>
+
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Add new account</h1>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('accountBalance')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Initial Account Balance</label>
+                                    <input type="text" class="form-control" th:field="*{accountBalance}" th:errorclass="has-error" placeholder="Initial balance"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('accountBalance')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('accountBalance')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add account</button>
+                    <td><a href="#" th:href="@{'/index'}">Start Page</a></td>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
