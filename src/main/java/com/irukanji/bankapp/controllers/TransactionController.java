@@ -96,7 +96,7 @@ public class TransactionController {
             return "transactions_list";
         }
 
-        if(clientId.isEmpty() && !(dateFrom == null) && !(dateTo == null)){
+        if(clientId.isEmpty() && dateFrom != null && dateTo != null){
             filteredTxList = this.transactionService.findTxListByPeriod(dateFrom, dateTo);
             model.addAttribute("txList", filteredTxList);
 
