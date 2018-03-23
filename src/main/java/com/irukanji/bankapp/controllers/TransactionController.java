@@ -104,7 +104,7 @@ public class TransactionController {
 
         }
 
-        if(!clientId.isEmpty() && !(dateFrom == null) && !(dateTo == null)){
+        if(!clientId.isEmpty() && dateFrom != null && dateTo != null){
             //TODO
           /*  List<Account> accountList = this.accountService.findAllAccounts(Long.parseLong(clientId));
             List<Long> accountIds = accountList.stream().map(acc -> acc.getId()).collect(Collectors.toList());
