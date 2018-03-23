@@ -16,4 +16,6 @@ public interface TransactionService {
     List<Transaction> findTxByDates(Date dateFrom, Date dateTo, List<Transaction> list);
 
     List<Transaction> findTxListByPeriod(Date dateFrom, Date dateTo);
+
+    List<Transaction> findTxListForAccount(String id);
 }

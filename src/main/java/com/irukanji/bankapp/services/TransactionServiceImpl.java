@@ -86,4 +86,13 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> findTxListByPeriod(Date dateFrom, Date dateTo) {
         return this.transactionRepository.findTxListByPeriod(dateFrom, dateTo);
     }
+
+    @Override
+    public List<Transaction> findTxListForAccount(String id) {
+        if(id != null) {
+            return this.transactionRepository.findTxByAccountId(Long.parseLong(id));
+        }
+
+        return new ArrayList<Transaction>();
+    }
 }

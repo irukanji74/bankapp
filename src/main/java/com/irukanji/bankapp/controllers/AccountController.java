@@ -2,6 +2,7 @@ package com.irukanji.bankapp.controllers;
 
 import com.irukanji.bankapp.model.Account;
 import com.irukanji.bankapp.model.Client;
+import com.irukanji.bankapp.model.Transaction;
 import com.irukanji.bankapp.services.AccountService;
 import com.irukanji.bankapp.services.ClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @Controller

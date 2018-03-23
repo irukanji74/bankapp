@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +36,13 @@ public class TransactionController {
         this.clientService = clientService;
     }
 
+    @RequestMapping("accounts/{id}/showTxList")
+    public String showTxListForAccountId(@PathVariable String id, Model model, HttpSession session) {
+        List<Transaction> txListOfAccount = this.transactionService.findTxListForAccount(id);
+        model.addAttribute("txList", txListOfAccount);
+
+        return "transactions_list";
+    }
 
     @RequestMapping("transact")
     public String getTransactionPage(Model model){
