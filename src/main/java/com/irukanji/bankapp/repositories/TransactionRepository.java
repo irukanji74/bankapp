@@ -15,4 +15,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query("select tx from Transaction tx where tx.txTime >= :dateFrom and tx.txTime <= :dateTo")
     List<Transaction> findTxListByPeriod(Date dateFrom, Date dateTo);
 
+    @Query("select tx from Transaction tx where tx.txTime >= :dateFrom and tx.txTime <= :dateTo " +
+            "and tx.accountIdFrom= :accId or tx.accountIdTo = :accId" )
+    List<Transaction> findTxInPeriod(Date dateFrom, Date dateTo, Long accId);
 }

@@ -37,7 +37,7 @@ public class TransactionController {
     }
 
     @RequestMapping("accounts/{id}/showTxList")
-    public String showTxListForAccountId(@PathVariable String id, Model model, HttpSession session) {
+    public String showTxListForAccountId(@PathVariable String id, Model model) {
         List<Transaction> txListOfAccount = this.transactionService.findTxListForAccount(id);
         model.addAttribute("txList", txListOfAccount);
 
@@ -77,8 +77,8 @@ public class TransactionController {
 
     @PostMapping("sort")
     public String filterSearch(@RequestParam(value="id",required=false) String clientId
-            ,@RequestParam(value="dateFrom",required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom
-            ,@RequestParam(value="dateTo",required=false)  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo
+            , @RequestParam(value="dateFrom",required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom
+            , @RequestParam(value="dateTo",required=false)  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo
             , Model model){
 
         log.debug("date of creation " + dateFrom + " dateTo " + dateTo + " clientId " + clientId);
@@ -105,17 +105,14 @@ public class TransactionController {
         }
 
         if(!clientId.isEmpty() && dateFrom != null && dateTo != null){
-            //TODO
-          /*  List<Account> accountList = this.accountService.findAllAccounts(Long.parseLong(clientId));
+          List<Account> accountList = this.accountService.findAllAccounts(Long.parseLong(clientId));
             List<Long> accountIds = accountList.stream().map(acc -> acc.getId()).collect(Collectors.toList());
 
-            List<Transaction> tempList = this.transactionService.findTxByClient(accountIds);
+            filteredTxList = this.transactionService.findTxByDates(dateFrom, dateTo, accountIds);
 
-
-            filteredTxList = this.transactionService.findTxByDates(dateFrom, dateTo, tempList);
             model.addAttribute("txList", filteredTxList);
 
-            return "transactions_list";*/
+            return "transactions_list";
 
         }
 

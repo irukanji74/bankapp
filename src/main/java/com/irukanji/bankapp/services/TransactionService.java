@@ -13,7 +13,7 @@ public interface TransactionService {
 
     List<Transaction> findTxByClient(List<Long> accountIds);
 
-    List<Transaction> findTxByDates(Date dateFrom, Date dateTo, List<Transaction> list);
+    List<Transaction> findTxByDates(Date dateFrom, Date dateTo, List<Long> accountIds);
 
     List<Transaction> findTxListByPeriod(Date dateFrom, Date dateTo);
 

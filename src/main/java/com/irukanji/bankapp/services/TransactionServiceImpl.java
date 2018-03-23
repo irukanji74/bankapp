@@ -75,10 +75,16 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     @Transactional
-    public List<Transaction> findTxByDates(Date dateFrom, Date dateTo,  List<Transaction> txList) {
+    public List<Transaction> findTxByDates(Date dateFrom, Date dateTo,  List<Long> accountIds) {
 
+        List<Transaction> txList = new ArrayList<>();
 
-        return null;
+        for (Long accId: accountIds) {
+            List<Transaction> tx  = this.transactionRepository.findTxInPeriod(dateFrom, dateTo, accId);
+            txList.addAll(tx);
+        }
+
+        return txList;
     }
 
     @Override
@@ -93,6 +99,6 @@ public class TransactionServiceImpl implements TransactionService {
             return this.transactionRepository.findTxByAccountId(Long.parseLong(id));
         }
 
-        return new ArrayList<Transaction>();
+        return new ArrayList<>();
     }
 }
