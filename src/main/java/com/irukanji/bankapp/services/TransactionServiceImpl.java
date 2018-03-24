@@ -10,10 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -70,6 +68,7 @@ public class TransactionServiceImpl implements TransactionService {
             List<Transaction> tx =  this.transactionRepository.findTxByAccountId(id);
             txList.addAll(tx);
         }
+        txList = txList.stream().distinct().collect(Collectors.toList());
         return txList;
     }
 
@@ -84,6 +83,7 @@ public class TransactionServiceImpl implements TransactionService {
             txList.addAll(tx);
         }
 
+        txList = txList.stream().distinct().collect(Collectors.toList());
         return txList;
     }
 

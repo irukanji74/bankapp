@@ -81,15 +81,21 @@ public class TransactionController {
             , @RequestParam(value="dateTo",required=false)  @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo
             , Model model){
 
-        log.debug("date of creation " + dateFrom + " dateTo " + dateTo + " clientId " + clientId);
         List<Transaction> filteredTxList;
 
         if(!clientId.isEmpty() && dateFrom == null && dateTo == null){
             List<Account> accountList = this.accountService.findAllAccounts(Long.parseLong(clientId));
 
+      log.debug("accounts size " + accountList.size());
+
             List<Long> accountIds = accountList.stream().map(acc -> acc.getId()).collect(Collectors.toList());
 
+       log.debug("accountIds " + accountIds.size());
+
             filteredTxList = this.transactionService.findTxByClient(accountIds);
+
+
+      log.debug("Tx List size " + filteredTxList.size());
 
             model.addAttribute("txList", filteredTxList);
 
@@ -109,6 +115,7 @@ public class TransactionController {
             List<Long> accountIds = accountList.stream().map(acc -> acc.getId()).collect(Collectors.toList());
 
             filteredTxList = this.transactionService.findTxByDates(dateFrom, dateTo, accountIds);
+
 
             model.addAttribute("txList", filteredTxList);
 
